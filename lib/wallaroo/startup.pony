@@ -329,6 +329,11 @@ actor Startup
             _startup_options.d_service)
         else
           // Use the my_*_service settings when not-default values.
+          let c_host = if _startup_options.my_c_host == "" then
+            _startup_options.c_host
+          else
+            _startup_options.my_c_host
+          end
           let c_svc = if _startup_options.my_c_service == "0" then
             _startup_options.c_service
           else
@@ -339,7 +344,7 @@ actor Startup
           else
             _startup_options.my_d_service
           end
-          (_startup_options.my_c_host, c_svc, d_svc)
+          (c_host, c_svc, d_svc)
         end
 
       let recovery_reconnecter = RecoveryReconnecter(auth,
